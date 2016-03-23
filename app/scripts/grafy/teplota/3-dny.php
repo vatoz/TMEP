@@ -17,6 +17,7 @@
                                         FROM tme
                                         WHERE kdy >= CAST('{$od}' AS datetime)
                                           AND kdy <= CAST('{$do}' AS datetime)
+                                          AND zarizeni=".ZARIZENI."
                                         ORDER BY kdy DESC");
       $a = 12;
       $fr = 1;

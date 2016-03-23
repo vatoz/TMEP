@@ -20,7 +20,7 @@
   $vcera = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d")-1, date("Y")));
 
   // Nejdriv najdeme posledni dopocitany den krome dnesniho
-  $q = MySQLi_query($GLOBALS["DBC"], "SELECT MAX(den) AS den FROM tme_denni");
+  $q = MySQLi_query($GLOBALS["DBC"], "SELECT MAX(den) AS den FROM tme_denni where zarizeni=".ZARIZENI);
   $h = MySQLi_fetch_assoc($q);
 
   // je potreba neco dopocitavat?
@@ -33,6 +33,7 @@
     $q = MySQLi_query($GLOBALS["DBC"], "SELECT kdy
                       FROM tme 
                       WHERE kdy > '{$h['den2']}' AND kdy < '".date("Y-m-d")."' 
+                      AND zarizeni=".ZARIZENI."
                       GROUP BY year(kdy),month(kdy),day(kdy) 
                       ORDER BY kdy ASC");
 
@@ -50,11 +51,12 @@
       // nejdrive naplnime tabulku cache, kde budou radky jen pro dopocitavany den
       // a tu potrapime radou dotazu misto toho, abysme ty dotazy vykonavali nad 
       // tabulkou se vsemi merenimi, ktera mohou jit do milionu zaznamu
-      MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme_cache(id, kdy, teplota, vlhkost)
-                                     SELECT id, kdy, teplota, vlhkost
+      MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme_cache(id, kdy, teplota, vlhkost,zarizeni)
+                                     SELECT id, kdy, teplota, vlhkost,".ZARIZENI."
                                      FROM tme
                                      WHERE kdy >= CAST('{$den} 00:00:00' AS datetime)
-                                       AND kdy <= CAST('{$den} 23:59:59' AS datetime)");
+                                       AND kdy <= CAST('{$den} 23:59:59' AS datetime)
+                                       AND zarizeni=".ZARIZENI );
       
       // mereni za den
       $qV = MySQLi_query($GLOBALS["DBC"], "SELECT COUNT(id) AS pocet,
@@ -62,7 +64,9 @@
                                                   MIN(vlhkost) AS minvlh, MAX(vlhkost) AS maxvlh, AVG(vlhkost) AS avgvlh
                                            FROM tme_cache
                                            WHERE kdy >= CAST('{$den} 00:00:00' AS datetime)
-                                             AND kdy <= CAST('{$den} 23:59:59' AS datetime)");
+                                             AND kdy <= CAST('{$den} 23:59:59' AS datetime)
+                                             AND zarizeni= ".ZARIZENI);
+                                             
 
       $qVhod = MySQLi_fetch_assoc($qV);
 
@@ -95,7 +99,9 @@
                                                     MIN(vlhkost) AS minvlh, MAX(vlhkost) AS maxvlh, AVG(vlhkost) AS avgvlh
                                              FROM tme_cache
                                              WHERE kdy >= CAST('{$den} {$c}:00:00' AS datetime)
-                                               AND kdy <= CAST('{$den} {$c}:59:59' AS datetime)");
+                                               AND kdy <= CAST('{$den} {$c}:59:59' AS datetime)
+                                               AND zarizeni=".ZARIZENI);
+                                               
 
         $qVhod = MySQLi_fetch_assoc($qV);
         
@@ -152,7 +158,7 @@
                                      20mereni, 20nejnizsi, 20nejvyssi, 20prumer, 20nejnizsi_vlhkost, 20nejvyssi_vlhkost, 20prumer_vlhkost,
                                      21mereni, 21nejnizsi, 21nejvyssi, 21prumer, 21nejnizsi_vlhkost, 21nejvyssi_vlhkost, 21prumer_vlhkost,
                                      22mereni, 22nejnizsi, 22nejvyssi, 22prumer, 22nejnizsi_vlhkost, 22nejvyssi_vlhkost, 22prumer_vlhkost,
-                                     23mereni, 23nejnizsi, 23nejvyssi, 23prumer, 23nejnizsi_vlhkost, 23nejvyssi_vlhkost, 23prumer_vlhkost)
+                                     23mereni, 23nejnizsi, 23nejvyssi, 23prumer, 23nejnizsi_vlhkost, 23nejvyssi_vlhkost, 23prumer_vlhkost, zarizeni)
               VALUES('{$hod['den']}', {$hod['mereni']}, {$hod['nejnizsi']}, {$hod['nejvyssi']}, {$hod['prumer']}, {$hod['nejnizsivlh']}, {$hod['nejvyssivlh']}, {$hod['prumervlh']}, 
                      {$hod['0mereni']}, {$hod['0nejnizsi']}, {$hod['0nejvyssi']}, {$hod['0prumer']}, {$hod['0nejnizsivlh']}, {$hod['0nejvyssivlh']}, {$hod['0prumervlh']},
                      {$hod['1mereni']}, {$hod['1nejnizsi']}, {$hod['1nejvyssi']}, {$hod['1prumer']}, {$hod['1nejnizsivlh']}, {$hod['1nejvyssivlh']}, {$hod['1prumervlh']},
@@ -177,7 +183,7 @@
                      {$hod['20mereni']}, {$hod['20nejnizsi']}, {$hod['20nejvyssi']}, {$hod['20prumer']}, {$hod['20nejnizsivlh']}, {$hod['20nejvyssivlh']}, {$hod['20prumervlh']},
                      {$hod['21mereni']}, {$hod['21nejnizsi']}, {$hod['21nejvyssi']}, {$hod['21prumer']}, {$hod['21nejnizsivlh']}, {$hod['21nejvyssivlh']}, {$hod['21prumervlh']},
                      {$hod['22mereni']}, {$hod['22nejnizsi']}, {$hod['22nejvyssi']}, {$hod['22prumer']}, {$hod['22nejnizsivlh']}, {$hod['22nejvyssivlh']}, {$hod['22prumervlh']},
-                     {$hod['23mereni']}, {$hod['23nejnizsi']}, {$hod['23nejvyssi']}, {$hod['23prumer']}, {$hod['23nejnizsivlh']}, {$hod['23nejvyssivlh']}, {$hod['23prumervlh']})");
+                     {$hod['23mereni']}, {$hod['23nejnizsi']}, {$hod['23nejvyssi']}, {$hod['23prumer']}, {$hod['23nejnizsivlh']}, {$hod['23nejvyssivlh']}, {$hod['23prumervlh']},".ZARIZENI.")");
 
       echo mysqli_error($GLOBALS["DBC"]);
 

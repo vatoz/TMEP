@@ -15,6 +15,7 @@
   // Posledni zaznamy
   $q = MySQLi_query($GLOBALS["DBC"], "SELECT kdy, vlhkost
                                         FROM tme
+                                        AND zarizeni=".ZARIZENI."
                                         WHERE kdy >= CAST('{$od}' AS datetime)
                                           AND kdy <= CAST('{$do}' AS datetime)
                                         ORDER BY kdy DESC");

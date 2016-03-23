@@ -78,6 +78,7 @@
                                              MIN(23nejnizsi_vlhkost), MAX(23nejvyssi_vlhkost), AVG(23prumer_vlhkost)
                                         FROM tme_denni
                                         WHERE den = '{$_GET['jenden']}'
+                                        AND zarizeni=".ZARIZENI."    
                                         GROUP BY den;");
 
     if(MySQLi_num_rows($q) == 0)
@@ -155,6 +156,7 @@
                                                     MIN(nejnizsi_vlhkost), MAX(nejvyssi_vlhkost), AVG(prumer_vlhkost)
                                              FROM tme_denni
                                              WHERE den LIKE '%-".substr($_GET['jenden'], 5, 6)."'
+                                             AND zarizeni=".ZARIZENI."
                                              GROUP BY den;");
 
       while($t = MySQLi_fetch_assoc($qL))

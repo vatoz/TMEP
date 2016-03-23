@@ -385,3 +385,30 @@ CHANGE `23nejnizsi_vlhkost` `23nejnizsi_vlhkost` float NULL COMMENT 'Nejnižší
 CHANGE `23nejvyssi_vlhkost` `23nejvyssi_vlhkost` float NULL COMMENT 'Nejvyšší vlhkost 23-24.' AFTER `23nejnizsi_vlhkost`,
 CHANGE `23prumer_vlhkost` `23prumer_vlhkost` float NULL COMMENT 'Průměrná vlhkost 23-24.' AFTER `23nejvyssi_vlhkost`,
 COMMENT='';
+
+ALTER TABLE `tme`
+ADD `zarizeni` int(11) NOT NULL AFTER `id`,
+COMMENT='';
+
+ALTER TABLE `tme_cache`
+ADD `zarizeni` int(11) NOT NULL AFTER `id`,
+COMMENT='';
+
+ALTER TABLE `tme_denni`
+ADD `zarizeni` int(11) NOT NULL AFTER `id`,
+COMMENT='';
+
+CREATE TABLE `tme_zarizeni` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(32) COLLATE utf8_czech_ci DEFAULT NULL,
+  `umisteni` varchar(155) COLLATE utf8_czech_ci NOT NULL,
+  `vlhkomer` int(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+INSERT INTO `tme_zarizeni` (`id`, `ip`, `umisteni`, `vlhkomer`) VALUES
+(1,	NULL,	'V zahradě',	1);
+
+ALTER TABLE `tme_denni`
+ADD UNIQUE `den_zarizeni` (`den`, `zarizeni`),
+DROP INDEX `den`;

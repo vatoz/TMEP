@@ -50,13 +50,13 @@ if(is_file("./".$_GET['do']))
       // kontrolujeme IP a sedi
       if(isset($ip) AND $ip != "" AND $ip == $_SERVER['REMOTE_ADDR'])
       {
-        MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme(kdy, teplota) VALUES(now(), '{$teplota}')");
+        MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme(kdy, teplota, zarizeni) VALUES(now(), '{$teplota}',".ZARIZENI.")");
         print mysqli_error($GLOBALS["DBC"]);
       }
       // nekontrolujeme IP
       elseif($ip == "")
       {
-        MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme(kdy, teplota) VALUES(now(), '{$teplota}')");
+        MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme(kdy, teplota,zarizeni) VALUES(now(), '{$teplota}',".ZARIZENI.")");
         print mysqli_error($GLOBALS["DBC"]);
       }
       // problem? zrejme pozadavek z jine nez z povolene IP

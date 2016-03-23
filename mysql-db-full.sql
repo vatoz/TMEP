@@ -204,3 +204,31 @@ CREATE TABLE `tme_denni` (
   UNIQUE KEY `den` (`den`),
   KEY `den_2` (`den`)
 ) ENGINE=MyISAM;
+
+
+ALTER TABLE `tme`
+ADD `zarizeni` int(11) NOT NULL AFTER `id`,
+COMMENT='';
+
+ALTER TABLE `tme_cache`
+ADD `zarizeni` int(11) NOT NULL AFTER `id`,
+COMMENT='';
+
+ALTER TABLE `tme_denni`
+ADD `zarizeni` int(11) NOT NULL AFTER `id`,
+COMMENT='';
+
+CREATE TABLE `tme_zarizeni` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(32) COLLATE utf8_czech_ci DEFAULT NULL,
+  `umisteni` varchar(155) COLLATE utf8_czech_ci NOT NULL,
+  `vlhkomer` int(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+INSERT INTO `tme_zarizeni` (`id`, `ip`, `umisteni`, `vlhkomer`) VALUES
+(1,	NULL,	'V zahradì',	1);
+
+ALTER TABLE `tme_denni`
+ADD UNIQUE `den_zarizeni` (`den`, `zarizeni`),
+DROP INDEX `den`;

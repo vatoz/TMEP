@@ -10,6 +10,7 @@
                       FROM tme 
                       WHERE kdy >= CAST('{$_GET['jenden']} ".(strlen($a) == 1 ? "0".$a : $a).":00:00' AS datetime) 
                         AND kdy <= CAST('{$_GET['jenden']} ".(strlen($a) == 1 ? "0".$a : $a).":59:59' AS datetime) 
+                        AND zarizeni=".ZARIZENI."
                       ORDER BY kdy ASC 
                       LIMIT 1");
 

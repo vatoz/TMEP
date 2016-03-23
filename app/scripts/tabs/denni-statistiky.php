@@ -9,6 +9,7 @@
   // nacteme teploty do tabulky pro poslednich dny
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, mereni, nejnizsi, nejvyssi, prumer
                                           FROM tme_denni
+                                          WHERE zarizeni=".ZARIZENI."
                                           ORDER BY den DESC
                                           LIMIT 47");
 
@@ -41,6 +42,7 @@
             $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, {$a}nejnizsi
                                                 FROM tme_denni
                                                 WHERE {$a}nejnizsi IS NOT NULL
+                                                AND zarizeni=".ZARIZENI."
                                                 ORDER BY {$a}nejnizsi ASC
                                                 LIMIT 1");
 
@@ -58,6 +60,7 @@
             ///////////////////////////
             $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, {$a}nejvyssi
                                                 FROM tme_denni
+                                                WHERE zarizeni=".ZARIZENI."
                                                 ORDER BY {$a}nejvyssi DESC
                                                 LIMIT 1");
 
@@ -131,8 +134,9 @@
 
       // nacteme teploty do tabulky pro poslednich dny
       $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, mereni, nejnizsi_vlhkost, nejvyssi_vlhkost, prumer_vlhkost
-                                              FROM tme_denni
+                                              FROM tme_denni                                              
                                               WHERE nejnizsi_vlhkost > 0
+                                              AND zarizeni=".ZARIZENI."
                                               ORDER BY den DESC
                                               LIMIT 47");
 
@@ -164,6 +168,7 @@
           $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, {$a}nejnizsi_vlhkost
                                               FROM tme_denni
                                               WHERE {$a}nejnizsi_vlhkost > 0
+                                              AND zarizeni=".ZARIZENI."
                                               ORDER BY {$a}nejnizsi_vlhkost ASC
                                               LIMIT 1");
 
@@ -181,6 +186,7 @@
           ///////////////////////////
           $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, {$a}nejvyssi_vlhkost
                             FROM tme_denni
+                            WHERE zarizeni=".ZARIZENI."
                             ORDER BY {$a}nejvyssi_vlhkost DESC
                             LIMIT 1");
 

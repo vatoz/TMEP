@@ -5,6 +5,7 @@
    // nacteme mesicni teploty      
    $dotaz = MySQLi_query($GLOBALS["DBC"], "SELECT den, prumer_vlhkost as prumer, nejnizsi_vlhkost as nejnizsi, nejvyssi_vlhkost as nejvyssi
                          FROM tme_denni 
+                         AND zarizeni=".ZARIZENI."
                          WHERE nejnizsi_vlhkost > 0 AND den LIKE '".intval($_GET['rok'])."-%' 
                          ORDER BY den DESC");
 

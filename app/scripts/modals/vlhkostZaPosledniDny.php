@@ -19,6 +19,7 @@
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, mereni, nejnizsi_vlhkost, nejvyssi_vlhkost, prumer_vlhkost
                     FROM tme_denni 
                     WHERE nejnizsi_vlhkost > 0
+                    AND zarizeni=".ZARIZENI."
                     ORDER BY den DESC 
                     LIMIT 250");
 

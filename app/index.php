@@ -44,12 +44,12 @@
       // kontrolujeme IP a sedi
       if(isset($ip) AND $ip != "" AND $ip == $_SERVER['REMOTE_ADDR'])
       {
-        MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme(kdy, teplota, vlhkost) VALUES(now(), '{$teplota}', {$vlhkost})");
+        MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme(kdy, teplota, vlhkost,zarizeni) VALUES(now(), '{$teplota}', {$vlhkost},".ZARIZENI.")");
       }
       // nekontrolujeme IP
       elseif($ip == "")
       {
-        MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme(kdy, teplota, vlhkost) VALUES(now(), '{$teplota}', {$vlhkost})");
+        MySQLi_query($GLOBALS["DBC"], "INSERT INTO tme(kdy, teplota, vlhkost,zarizeni) VALUES(now(), '{$teplota}', {$vlhkost},".ZARIZENI.")");
         print mysqli_error($GLOBALS["DBC"]);
       }
       // problem? zrejme pozadavek z jine nez z povolene IP
@@ -76,7 +76,7 @@
   // inicializace promenne, abych vedel jestli zobrazovat info
   // o dopocitanych dnech pri primem zavolani skriptu
   $dopocitat = 1;
-  include_once "./scripts/dopocitat.php";
+ include_once "./scripts/dopocitat.php";
 
  //////////////////////////////////////////////////////////////////////////
  //// JAZYK A JEDNOTKA
@@ -147,6 +147,7 @@
     echo "<div id='menu'>
       <nav>
         <ul>
+          ".menuZarizeni()."
           ".menuJazyky($jazyky, $l)."
           ".menuJednotky($jednotky, $u)."
         </ul>

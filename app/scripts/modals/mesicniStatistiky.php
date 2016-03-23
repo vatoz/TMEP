@@ -13,7 +13,8 @@
  $minmax = Array();
 
  $dotaz = MySQLi_query($GLOBALS["DBC"], "SELECT den as mesic, MIN(nejnizsi) as nejnizsi, MAX(nejvyssi) as nejvyssi
-                       FROM tme_denni 
+                       FROM tme_denni
+                       WHERE zarizeni=".ZARIZENI."
                        GROUP BY year(den), month(den) 
                        ORDER BY den DESC
                        LIMIT 1, 60");
@@ -40,6 +41,7 @@
    // nacteme
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer) as prumer
                         FROM tme_denni 
+                        WHERE zarizeni=".ZARIZENI."
                         GROUP BY year(den),month(den)
                         ORDER BY prumer DESC
                         LIMIT 50");
@@ -84,6 +86,7 @@
   // nacteme
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer) as prumer
                         FROM tme_denni 
+                        WHERE zarizeni=".ZARIZENI."
                         GROUP BY year(den),month(den)
                         ORDER BY prumer ASC
                         LIMIT 50");
@@ -105,6 +108,7 @@
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer_vlhkost) as prumer
                         FROM tme_denni 
                         WHERE prumer_vlhkost > 0
+                        AND zarizeni=".ZARIZENI."
                         GROUP BY year(den),month(den)
                         ORDER BY prumer DESC
                         LIMIT 50");
@@ -144,6 +148,7 @@
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer_vlhkost) as prumer
                         FROM tme_denni 
                         WHERE prumer_vlhkost > 0
+                        AND  zarizeni=".ZARIZENI."
                         GROUP BY year(den),month(den)
                         ORDER BY prumer ASC
                         LIMIT 50");
@@ -176,6 +181,7 @@
   ///////////////////////////
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, mereni
                         FROM tme_denni 
+                        WHERE zarizeni=".ZARIZENI."
                         GROUP BY year(den),month(den)
                         ORDER BY mereni DESC
                         LIMIT 50");
@@ -204,7 +210,8 @@
   // nacteme nejmene mereni
   ///////////////////////////
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, mereni
-                        FROM tme_denni 
+                        FROM tme_denni
+                        WHERE zarizeni=".ZARIZENI."
                         GROUP BY year(den),month(den)
                         ORDER BY mereni ASC
                         LIMIT 50");

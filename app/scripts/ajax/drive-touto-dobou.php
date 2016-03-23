@@ -37,6 +37,7 @@
                             FROM tme 
                             WHERE kdy >= CAST('".substr($dny2[$a], 0, 15)."0' AS datetime)
                                   AND kdy <= CAST('".substr($dny2[$a], 0, 15)."9' AS datetime)
+                                  AND zarizeni=".ZARIZENI."
                             LIMIT 1");
       $hod = MySQLi_fetch_assoc($dotaz);
 

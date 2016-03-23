@@ -6,6 +6,7 @@
    // nacteme mesicni teploty      
    $dotaz = MySQLi_query($GLOBALS["DBC"], "SELECT den as mesic, AVG(prumer) as prumer, MIN(nejnizsi) as nejnizsi, MAX(nejvyssi) as nejvyssi
                          FROM tme_denni 
+                         WHERE zarizeni=".ZARIZENI."
                          GROUP BY year(den), month(den) 
                          ORDER BY den DESC
                          LIMIT 1, 36");

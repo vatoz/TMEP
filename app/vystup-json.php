@@ -22,6 +22,7 @@
 
   $q = MySQLi_query($GLOBALS["DBC"], "SELECT teplota, vlhkost, kdy
                                       FROM tme
+                                      WHERE zarizeni=".ZARIZENI."
                                       ORDER BY id DESC
                                       LIMIT 1");
 

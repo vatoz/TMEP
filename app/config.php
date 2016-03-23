@@ -64,3 +64,6 @@
                              //     přesměrovat jej rovnou na mobilní verzi?
                              // EN: If user uses mobile device,
                              //     redirect him automatically on mobile version?
+
+
+  include_once 'scripts/zarizeni.php';

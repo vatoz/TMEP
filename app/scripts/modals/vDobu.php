@@ -35,6 +35,7 @@
     $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, {$_GET['doba']}nejnizsi
                       FROM tme_denni 
                       WHERE {$_GET['doba']}nejnizsi IS NOT NULL
+                      AND zarizeni=".ZARIZENI."
                       ORDER BY {$_GET['doba']}nejnizsi ASC 
                       LIMIT 25");
 
@@ -54,7 +55,8 @@
     // nejvyssi
     ///////////////////////////
     $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, {$_GET['doba']}nejvyssi
-                      FROM tme_denni 
+                      FROM tme_denni
+                      WHERE zarizeni=".ZARIZENI."
                       ORDER BY {$_GET['doba']}nejvyssi DESC 
                       LIMIT 25");
 
@@ -89,6 +91,7 @@
       $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, {$_GET['doba']}nejnizsi_vlhkost
                         FROM tme_denni 
                         WHERE {$_GET['doba']}nejnizsi_vlhkost > 0 
+                        AND zarizeni=".ZARIZENI."
                         ORDER BY {$_GET['doba']}nejnizsi_vlhkost ASC 
                         LIMIT 25");
       echo "<tr>
@@ -108,6 +111,7 @@
       ///////////////////////////
       $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, {$_GET['doba']}nejvyssi_vlhkost
                         FROM tme_denni 
+                        WHERE zarizeni=".ZARIZENI."
                         ORDER BY {$_GET['doba']}nejvyssi_vlhkost DESC 
                         LIMIT 25");
 

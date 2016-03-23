@@ -9,6 +9,7 @@
   // nacteme
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer) as prumer
                                           FROM tme_denni
+                                          WHERE zarizeni=".ZARIZENI."
                                           GROUP BY year(den),month(den)
                                           ORDER BY prumer DESC
                                           LIMIT 10");
@@ -19,11 +20,11 @@
   ///////////////////////////
   // rozdeleni na dva sloupce
 
-  if(kolikRadek("den", "tme_denni", "GROUP BY year(den), month(den)") > 2) { echo "<div class='graf' id='graf-mesicni-teplota'>"; require dirname(__FILE__).'/../grafy/teplota/mesicni.php'; echo "</div>"; }
+  if(kolikRadek("den", "tme_denni", "WHERE zarizeni=".ZARIZENI." GROUP BY year(den), month(den)") > 2) { echo "<div class='graf' id='graf-mesicni-teplota'>"; require dirname(__FILE__).'/../grafy/teplota/mesicni.php'; echo "</div>"; }
 
   if($vlhkomer == 1)
   {
-    if(kolikRadek("den", "tme_denni", "GROUP BY year(den), month(den)") > 2) { echo "<div class='graf' id='graf-mesicni-vlhkost'>"; require dirname(__FILE__).'/../grafy/vlhkost/mesicni.php'; echo "</div>"; }
+    if(kolikRadek("den", "tme_denni", "WHERE zarizeni=".ZARIZENI." GROUP BY year(den), month(den)") > 2) { echo "<div class='graf' id='graf-mesicni-vlhkost'>"; require dirname(__FILE__).'/../grafy/vlhkost/mesicni.php'; echo "</div>"; }
   }
 
     echo "</div><div class='container'>
@@ -64,6 +65,7 @@
   // nacteme
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer) as prumer
                                           FROM tme_denni
+                                          WHERE zarizeni=".ZARIZENI."
                                           GROUP BY year(den),month(den)
                                           ORDER BY prumer ASC
                                           LIMIT 10");
@@ -85,6 +87,7 @@
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer_vlhkost) as prumer
                                           FROM tme_denni
                                           WHERE prumer_vlhkost > 0
+                                          AND zarizeni=".ZARIZENI."
                                           GROUP BY year(den),month(den)
                                           ORDER BY prumer DESC
 
@@ -127,6 +130,7 @@
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer_vlhkost) as prumer
                                           FROM tme_denni
                                           WHERE prumer_vlhkost > 0
+                                          AND zarizeni=".ZARIZENI."
                                           GROUP BY year(den),month(den)
                                           ORDER BY prumer ASC
                                           LIMIT 10");
@@ -160,6 +164,7 @@
   ///////////////////////////
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(mereni) as mereni
                                           FROM tme_denni
+                                          WHERE zarizeni=".ZARIZENI."
                                           GROUP BY year(den),month(den)
                                           ORDER BY mereni DESC
                                           LIMIT 10");
@@ -189,6 +194,7 @@
   ///////////////////////////
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(mereni) as mereni
                                           FROM tme_denni
+                                          WHERE zarizeni=".ZARIZENI."
                                           GROUP BY year(den),month(den)
                                           ORDER BY mereni ASC
                                           LIMIT 10");
@@ -264,6 +270,7 @@
                                                MIN(22nejnizsi_vlhkost), MAX(22nejvyssi_vlhkost), AVG(22prumer_vlhkost),
                                                MIN(23nejnizsi_vlhkost), MAX(23nejvyssi_vlhkost), AVG(23prumer_vlhkost)
                                           FROM tme_denni 
+                                          WHERE zarizeni=".ZARIZENI."
                                           GROUP BY year(den),month(den)
                                           ORDER BY den DESC
                                           LIMIT 3"); 

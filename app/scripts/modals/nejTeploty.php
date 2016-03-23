@@ -21,6 +21,7 @@
     $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, nejnizsi as teplota
                       FROM tme_denni 
                       WHERE nejnizsi IS NOT null
+                      AND zarizeni=".ZARIZENI."
                       ORDER BY nejnizsi ASC 
                       LIMIT 15");
 
@@ -31,6 +32,7 @@
       $dotaz = MySQLi_query($GLOBALS["DBC"], "SELECT kdy
                             FROM tme 
                             WHERE (kdy >= CAST('{$r['den']} 00:00:00' AS datetime) AND kdy <= CAST('{$r['den']} 23:59:59' AS datetime)) AND 
+                                    AND zarizeni=".ZARIZENI."
                                   teplota LIKE {$r['teplota']} LIMIT 1");
 
       // Nacteme do promenne
@@ -61,6 +63,7 @@
     $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, prumer as teplota
                       FROM tme_denni 
                       WHERE prumer IS NOT null
+                      AND zarizeni=".ZARIZENI."
                       ORDER BY prumer ASC 
                       LIMIT 15");
 
@@ -95,6 +98,7 @@
     $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, nejvyssi as teplota
                       FROM tme_denni 
                       WHERE nejvyssi IS NOT null 
+                      AND zarizeni=".ZARIZENI."
                       ORDER BY nejvyssi DESC 
                       LIMIT 15");
     while($r = MySQLi_fetch_assoc($q))
@@ -104,6 +108,7 @@
       $dotaz = MySQLi_query($GLOBALS["DBC"], "SELECT kdy
                             FROM tme 
                             WHERE (kdy >= CAST('{$r['den']} 00:00:00' AS datetime) AND kdy <= CAST('{$r['den']} 23:59:59' AS datetime)) AND 
+                                AND zarizeni=".ZARIZENI."
                                   teplota LIKE {$r['teplota']} LIMIT 1");
       // Nacteme do promenne
       $hod = MySQLi_fetch_assoc($dotaz);
@@ -131,6 +136,7 @@
     // Nacteme dny a teploty
     $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, prumer as teplota
                       FROM tme_denni 
+                      AND zarizeni=".ZARIZENI."
                       WHERE prumer IS NOT null
                       ORDER BY prumer DESC 
                       LIMIT 15");

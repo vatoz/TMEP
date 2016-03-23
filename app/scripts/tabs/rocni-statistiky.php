@@ -8,6 +8,7 @@
 
   $q = MySQLi_query($GLOBALS["DBC"], "SELECT den
                                       FROM tme_denni
+                                      WHERE zarizeni=".ZARIZENI."
                                       GROUP BY year(den)
                                       ORDER BY den DESC");
 
@@ -23,6 +24,7 @@
                                                      MIN(nejnizsi_vlhkost), MAX(nejvyssi_vlhkost), AVG(prumer_vlhkost)
                                               FROM tme_denni
                                               WHERE den LIKE '{$rok}-%'
+                                              AND zarizeni=".ZARIZENI."
                                               LIMIT 1");
       $r = MySQLi_fetch_assoc($qStat);
 
@@ -88,6 +90,7 @@
       $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, nejvyssi
                                               FROM tme_denni
                                               WHERE den LIKE '{$rok}-%'
+                                              AND zarizeni=".ZARIZENI."
                                               ORDER BY nejvyssi DESC
                                               LIMIT 6");
     
@@ -120,6 +123,7 @@
       $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, nejnizsi
                                               FROM tme_denni
                                               WHERE den LIKE '{$rok}-%'
+                                              AND zarizeni=".ZARIZENI."
                                               ORDER BY nejnizsi ASC
                                               LIMIT 6");
 
@@ -152,6 +156,7 @@
       $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer) as prumer
                                               FROM tme_denni
                                               WHERE den LIKE '{$rok}-%'
+                                              AND zarizeni=".ZARIZENI."
                                               GROUP BY year(den),month(den)
                                               ORDER BY prumer DESC
                                               LIMIT 6");
@@ -185,6 +190,7 @@
       $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer) as prumer
                                               FROM tme_denni
                                               WHERE den LIKE '{$rok}-%'
+                                              AND zarizeni=".ZARIZENI."
                                               GROUP BY year(den),month(den)
                                               ORDER BY prumer ASC
                                               LIMIT 6");
@@ -214,6 +220,7 @@
           $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, nejvyssi_vlhkost
                                                   FROM tme_denni
                                                   WHERE den LIKE '{$rok}-%' AND nejvyssi_vlhkost > 0
+                                                  AND zarizeni=".ZARIZENI."
                                                   ORDER BY nejvyssi_vlhkost DESC
                                                   LIMIT 6");
     
@@ -258,6 +265,7 @@
           $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, nejnizsi_vlhkost
                                                   FROM tme_denni
                                                   WHERE den LIKE '{$rok}-%' AND nejnizsi_vlhkost > 0
+                                                  AND zarizeni=".ZARIZENI."
                                                   ORDER BY nejnizsi_vlhkost ASC
                                                   LIMIT 6");
 
@@ -296,6 +304,7 @@
           $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer_vlhkost) as prumer
                                                   FROM tme_denni
                                                   WHERE den LIKE '{$rok}-%' AND prumer_vlhkost > 0
+                                                  AND zarizeni=".ZARIZENI."
                                                   GROUP BY year(den),month(den)
                                                   ORDER BY prumer DESC
                                                   LIMIT 6");
@@ -335,6 +344,7 @@
           $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, AVG(prumer_vlhkost) as prumer
                                                   FROM tme_denni
                                                   WHERE den LIKE '{$rok}-%'  AND prumer_vlhkost > 0
+                                                  AND zarizeni=".ZARIZENI."
                                                   GROUP BY year(den),month(den)
                                                   ORDER BY prumer ASC
                                                   LIMIT 6");

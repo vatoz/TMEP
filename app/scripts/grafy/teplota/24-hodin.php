@@ -4,7 +4,7 @@
   require dirname(__FILE__)."/../../init.php";;
 
   // Posledni zaznamy
-  $q = MySQLi_query($GLOBALS["DBC"], "SELECT kdy, teplota FROM tme ORDER BY kdy DESC LIMIT 1440");
+  $q = MySQLi_query($GLOBALS["DBC"], "SELECT kdy, teplota FROM tme  WHERE zarizeni=".ZARIZENI." ORDER BY kdy DESC LIMIT 1440");
 
   // budeme brat kazdy 40ty zaznam, abychom se do grafu rozumne vesli
   $a = 10;

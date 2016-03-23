@@ -364,6 +364,41 @@ function menuJazyky($jazyky, $vybranyJazyk)
 
 }
 
+
+
+
+function menuZarizeni()
+{
+$q = MySQLi_query($GLOBALS["DBC"], "SELECT * from tme_zarizeni");
+    $zar=array();
+      while($t = MySQLi_fetch_assoc($q)){
+          $zar[$t['id']]=$t;          
+      }
+    
+    
+    
+    
+  $menu = "<li><a href='#'>".$zar[ZARIZENI]['umisteni'] ."</a>";
+    $menu .= "<ul class='zarizeni'>";
+
+    foreach($zar as $zarizeni)
+    {
+
+      if($zarizeni['id'] != ZARIZENI)
+      {
+        $menu .= "<li><a href='{$_SERVER['PHP_SELF']}?zarizeni=".$zarizeni['id']."&amp;ja={$jazyk}&amp;je={$_GET['je']}'>".$zarizeni['umisteni']."</a></li>";
+      }
+
+    }
+
+  $menu .= "</ul></li>";
+
+
+  return $menu;
+
+}
+
+
 /**
  * @param $jednotky
  * @param $vybranaJednotka

@@ -21,6 +21,7 @@
     $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, mereni
                       FROM tme_denni 
                       WHERE mereni IS NOT null
+                      AND zarizeni=".ZARIZENI."
                       ORDER BY mereni ASC 
                       LIMIT 50");
 
@@ -55,6 +56,7 @@
     $q = MySQLi_query($GLOBALS["DBC"], "SELECT den, mereni
                       FROM tme_denni 
                       WHERE mereni IS NOT null
+                      AND zarizeni=".ZARIZENI."
                       ORDER BY mereni DESC 
                       LIMIT 50");
     while($r = MySQLi_fetch_assoc($q))

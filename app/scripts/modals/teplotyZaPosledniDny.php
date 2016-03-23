@@ -21,6 +21,7 @@
   // nacteme teploty do tabulky pro poslednich dny
   $qStat = MySQLi_query($GLOBALS["DBC"], "SELECT den, mereni, nejnizsi, nejvyssi, prumer
                     FROM tme_denni 
+                    WHERE zarizeni=".ZARIZENI."
                     ORDER BY den DESC 
                     LIMIT 250");
 
